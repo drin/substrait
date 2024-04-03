@@ -1,6 +1,6 @@
 version: v1
 plugins:
-  - plugin: buf.build/protocolbuffers/cpp:v25.2
+  - plugin: buf.build/protocolbuffers/cpp:v26.1
     out: gen/proto/cpp
-  - plugin: buf.build/protocolbuffers/python:v25.2
+  - plugin: buf.build/protocolbuffers/python:v26.1
     out: gen/proto/python
