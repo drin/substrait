@@ -1,17 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
-package substrait;
+package skyproto.substrait;
 
-import "substrait/algebra.proto";
-import "substrait/extensions/extensions.proto";
-import "substrait/plan.proto";
-import "substrait/type.proto";
+import "skyproto/substrait/algebra.proto";
+import "skyproto/substrait/extensions/extensions.proto";
+import "skyproto/substrait/plan.proto";
+import "skyproto/substrait/type.proto";
 
-option csharp_namespace = "Substrait.Protobuf";
-option go_package = "github.com/substrait-io/substrait-protobuf/go/substraitpb";
-option java_multiple_files = true;
-option java_package = "io.substrait.proto";
 
 message ExpressionReference {
   oneof expr_type {
@@ -31,21 +27,21 @@ message ExtendedExpression {
 
   // a list of yaml specifications this expression may depend on
   // this is now deprecated and extension_urns should be used instead.
-  repeated substrait.extensions.SimpleExtensionURI extension_uris = 1 [deprecated = true];
+  repeated skyproto.substrait.extensions.SimpleExtensionURI extension_uris = 1 [deprecated = true];
 
   // a list of extension specifications this expression may depend on,
   // referenced by Extension URN
-  repeated substrait.extensions.SimpleExtensionURN extension_urns = 8;
+  repeated skyproto.substrait.extensions.SimpleExtensionURN extension_urns = 8;
 
   // a list of extensions this expression may depend on
-  repeated substrait.extensions.SimpleExtensionDeclaration extensions = 2;
+  repeated skyproto.substrait.extensions.SimpleExtensionDeclaration extensions = 2;
 
   // one or more expression trees with same order in plan rel
   repeated ExpressionReference referred_expr = 3;
 
   NamedStruct base_schema = 4;
   // additional extensions associated with this expression.
-  substrait.extensions.AdvancedExtension advanced_extensions = 5;
+  skyproto.substrait.extensions.AdvancedExtension advanced_extensions = 5;
 
   // A list of com.google.Any entities that this plan may use. Can be used to
   // warn if some embedded message types are unknown. Note that this list may
