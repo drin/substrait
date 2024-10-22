@@ -1,5 +1,7 @@
-version: v1
-name: buf.build/octalene/substrait
+version: v2
+modules:
+  - path: .
+    name: buf.build/octalene/substrait
 lint:
   use:
     - DEFAULT

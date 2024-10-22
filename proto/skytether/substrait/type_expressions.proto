@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
-package skytether.substrait
+package skytether.substrait;
 
 import "skytether/substrait/type.proto";
 
