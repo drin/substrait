@@ -1,13 +1,13 @@
 version: v2
 modules:
-  - path: .
+  - path: proto/skytether
     name: buf.build/octalene/substrait
 lint:
   use:
-    - DEFAULT
+    - STANDARD
   ignore_only:
     PACKAGE_VERSION_SUFFIX:
-      - substrait
+      - proto/skytether
 breaking:
   use:
     - FILE
