@@ -1,14 +1,6 @@
 version: v2
 plugins:
-  - remote: buf.build/protocolbuffers/cpp:v27.3
+  - remote: buf.build/protocolbuffers/cpp:v28.2
     out: gen/proto/cpp/mohair-substrait
-  - remote: buf.build/protocolbuffers/csharp:v27.3
-    out: gen/proto/csharp/mohair-substrait
-  - remote: buf.build/protocolbuffers/java:v27.3
-    out: gen/proto/java/mohair-substrait
-  - remote: buf.build/protocolbuffers/python:v27.3
+  - remote: buf.build/protocolbuffers/python:v28.2
     out: gen/proto/python/mohair-substrait
-  - remote: buf.build/protocolbuffers/go:v1.34.2
-    out: gen/proto/go/mohair-substrait
-    opt:
-      - paths=source_relative
