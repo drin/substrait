@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/skytether/substrait
+name: buf.build/octalene/substrait
 lint:
   use:
     - DEFAULT
