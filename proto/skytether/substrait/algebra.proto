@@ -1,16 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
-package substrait;
+package skytether.substrait;
 
 import "google/protobuf/any.proto";
-import "substrait/extensions/extensions.proto";
-import "substrait/type.proto";
+import "skytether/substrait/extensions/extensions.proto";
+import "skytether/substrait/type.proto";
 
-option csharp_namespace = "Substrait.Protobuf";
-option go_package = "github.com/substrait-io/substrait-go/proto";
-option java_multiple_files = true;
-option java_package = "io.substrait.proto";
 
 // Common fields for all relational operators
 message RelCommon {
@@ -22,7 +18,7 @@ message RelCommon {
   }
 
   Hint hint = 3;
-  substrait.extensions.AdvancedExtension advanced_extension = 4;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 4;
 
   // Direct indicates no change on presence and ordering of fields in the output
   message Direct {}
@@ -45,7 +41,7 @@ message RelCommon {
     // in RelRoot but applies to the output of the relation this RelCommon is attached to.
     repeated string output_names = 4;
 
-    substrait.extensions.AdvancedExtension advanced_extension = 10;
+    skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
     // Save or load a system-specific computation for use in optimizing a remote operation.
     // The anchor refers to the source/destination of the computation.  The computation type
@@ -57,13 +53,13 @@ message RelCommon {
     message Stats {
       double row_count = 1;
       double record_size = 2;
-      substrait.extensions.AdvancedExtension advanced_extension = 10;
+      skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
     }
 
     message RuntimeConstraint {
       // TODO: nodes, cpu threads/%, memory, iops, etc.
 
-      substrait.extensions.AdvancedExtension advanced_extension = 10;
+      skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
     }
 
     enum ComputationType {
@@ -106,7 +102,7 @@ message ReadRel {
   Expression filter = 3;
   Expression best_effort_filter = 11;
   Expression.MaskExpression projection = 4;
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
   // Definition of which type of scan operation is to be performed
   oneof read_type {
@@ -120,7 +116,7 @@ message ReadRel {
   // This assumes shared catalog between systems exchanging a message.
   message NamedTable {
     repeated string names = 1;
-    substrait.extensions.AdvancedExtension advanced_extension = 10;
+    skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
   }
 
   // A table composed of expressions.
@@ -138,7 +134,7 @@ message ReadRel {
   // Represents a list of files in input of a scan operation
   message LocalFiles {
     repeated FileOrFiles items = 1;
-    substrait.extensions.AdvancedExtension advanced_extension = 10;
+    skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
     // Many files consist of indivisible chunks (e.g. parquet row groups
     // or CSV rows).  If a slice partially selects an indivisible chunk
@@ -222,7 +218,7 @@ message ProjectRel {
   RelCommon common = 1;
   Rel input = 2;
   repeated Expression expressions = 3;
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The binary JOIN relational operator left-join-right, including various join types, a join condition and post_join_filter expression
@@ -251,7 +247,7 @@ message JoinRel {
     JOIN_TYPE_RIGHT_MARK = 12;
   }
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // Cartesian product relational operator of two tables (left and right)
@@ -260,7 +256,7 @@ message CrossRel {
   Rel left = 2;
   Rel right = 3;
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The relational operator representing LIMIT/OFFSET or TOP type semantics.
@@ -272,7 +268,7 @@ message FetchRel {
   // the amount of records to return
   // use -1 to signal that ALL records should be returned
   int64 count = 4;
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The relational operator representing a GROUP BY Aggregate
@@ -297,7 +293,7 @@ message AggregateRel {
   // `Grouping.expression_references`.
   repeated Expression grouping_expressions = 5;
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
   message Grouping {
     // Deprecated in favor of `expression_references` below.
@@ -329,7 +325,7 @@ message ConsistentPartitionWindowRel {
   repeated Expression partition_expressions = 4;
   repeated SortField sorts = 5;
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
   // This message mirrors the `WindowFunction` message but removes the fields defining the partition,
   // sorts, and bounds, since those must be consistent across the various functions in this rel.  Refer
@@ -360,7 +356,7 @@ message SortRel {
   RelCommon common = 1;
   Rel input = 2;
   repeated SortField sorts = 3;
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The relational operator capturing simple FILTERs (as in the WHERE clause of SQL)
@@ -368,7 +364,7 @@ message FilterRel {
   RelCommon common = 1;
   Rel input = 2;
   Expression condition = 3;
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The relational set operators (intersection/union/etc..)
@@ -378,7 +374,7 @@ message SetRel {
   // inputs.  There must be at least two inputs.
   repeated Rel inputs = 2;
   SetOp op = 3;
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
   enum SetOp {
     SET_OP_UNSPECIFIED = 0;
@@ -429,7 +425,7 @@ message ExchangeRel {
     Broadcast broadcast = 9;
   }
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
   message ScatterFields {
     repeated Expression.FieldReference fields = 1;
@@ -547,7 +543,7 @@ message NamedObjectWrite {
   // The list of string is used to represent namespacing (e.g., mydb.mytable).
   // This assumes shared catalog between systems exchanging a message.
   repeated string names = 1;
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // A stub type that can be used to extend/introduce new table types outside
@@ -781,7 +777,7 @@ message HashJoinRel {
     JOIN_TYPE_RIGHT_MARK = 12;
   }
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The merge equijoin does a join by taking advantage of two sets that are sorted on the join keys.
@@ -831,7 +827,7 @@ message MergeJoinRel {
     JOIN_TYPE_RIGHT_MARK = 12;
   }
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The nested loop join (NLJ) operator will hold the entire right input and iterate over it using the
@@ -861,7 +857,7 @@ message NestedLoopJoinRel {
     JOIN_TYPE_RIGHT_MARK = 12;
   }
 
-  substrait.extensions.AdvancedExtension advanced_extension = 10;
+  skytether.substrait.extensions.AdvancedExtension advanced_extension = 10;
 }
 
 // The argument of a function
