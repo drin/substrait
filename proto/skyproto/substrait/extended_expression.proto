@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
-package skytether.substrait;
+package skyproto.substrait;
 
-import "skytether/substrait/algebra.proto";
-import "skytether/substrait/extensions/extensions.proto";
-import "skytether/substrait/plan.proto";
-import "skytether/substrait/type.proto";
+import "skyproto/substrait/algebra.proto";
+import "skyproto/substrait/extensions/extensions.proto";
+import "skyproto/substrait/plan.proto";
+import "skyproto/substrait/type.proto";
 
 
 message ExpressionReference {
@@ -26,17 +26,17 @@ message ExtendedExpression {
   Version version = 7;
 
   // a list of yaml specifications this expression may depend on
-  repeated skytether.substrait.extensions.SimpleExtensionURI extension_uris = 1;
+  repeated skyproto.substrait.extensions.SimpleExtensionURI extension_uris = 1;
 
   // a list of extensions this expression may depend on
-  repeated skytether.substrait.extensions.SimpleExtensionDeclaration extensions = 2;
+  repeated skyproto.substrait.extensions.SimpleExtensionDeclaration extensions = 2;
 
   // one or more expression trees with same order in plan rel
   repeated ExpressionReference referred_expr = 3;
 
   NamedStruct base_schema = 4;
   // additional extensions associated with this expression.
-  skytether.substrait.extensions.AdvancedExtension advanced_extensions = 5;
+  skyproto.substrait.extensions.AdvancedExtension advanced_extensions = 5;
 
   // A list of com.google.Any entities that this plan may use. Can be used to
   // warn if some embedded message types are unknown. Note that this list may

@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
-package skytether.substrait;
+package skyproto.substrait;
 
-import "skytether/substrait/parameterized_types.proto";
-import "skytether/substrait/type.proto";
-import "skytether/substrait/type_expressions.proto";
+import "skyproto/substrait/parameterized_types.proto";
+import "skyproto/substrait/type.proto";
+import "skyproto/substrait/type_expressions.proto";
 
 
 // List of function signatures available.
