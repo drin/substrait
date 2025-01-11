@@ -1743,5 +1743,9 @@ message AggregateFunction {
 // This rel is used  to create references,
 // in case we refer to a RelRoot field names will be ignored
 message ReferenceRel {
-  int32 subtree_ordinal = 1;
+  // A positional reference into `Plan`.`relations` that may eventually be deprecated
+  optional int32 subtree_ordinal = 1;
+
+  // Points to an anchor ID in `PlanRel`
+  uint32 subtree_reference = 2;
 }
