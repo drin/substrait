@@ -41,6 +41,8 @@ message RelCommon {
     // in RelRoot but applies to the output of the relation this RelCommon is attached to.
     repeated string output_names = 4;
 
+    optional NamedStruct output_schema = 5;
+
     skyproto.substrait.extensions.AdvancedExtension advanced_extension = 10;
 
     // Save or load a system-specific computation for use in optimizing a remote operation.
