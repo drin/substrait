@@ -585,6 +585,8 @@ message Rel {
     ExchangeRel exchange = 15;
     ExpandRel expand = 16;
   }
+
+  bool has_splitoverride = 31;
 }
 
 // A base object for writing (e.g., a table or a view).
