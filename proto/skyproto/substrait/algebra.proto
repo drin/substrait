@@ -20,6 +20,9 @@ message RelCommon {
   Hint hint = 3;
   skyproto.substrait.extensions.AdvancedExtension advanced_extension = 4;
 
+  //! A unique ID for this relation within this Plan.
+  optional uint32 operator_id = 5;
+
   // Direct indicates no change on presence and ordering of fields in the output
   message Direct {}
 
@@ -37,6 +40,8 @@ message RelCommon {
     // Name (alias) for this relation. Can be used for e.g. qualifying the relation (see e.g.
     // Spark's SubqueryAlias), or debugging.
     string alias = 3;
+    uint64 alias_hash = 6;
+
     // Assigns alternative output field names for any relation.  Equivalent to the names field
     // in RelRoot but applies to the output of the relation this RelCommon is attached to.
     repeated string output_names = 4;

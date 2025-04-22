@@ -7,6 +7,30 @@ import "skyproto/substrait/algebra.proto";
 import "skyproto/substrait/extensions/extensions.proto";
 
 
+//! Structure for runtime statistics for decomposition phases and steps
+message DecomposeStats {
+  StepID step_id     = 1;
+  uint32 operator_id = 2;
+  double latency     = 3;
+
+  enum StepID {
+    PARSE     = 0;
+    SPLIT     = 1;
+    MERGE     = 2;
+    DELEGATE  = 3;
+    TRANSLATE = 4;
+    ORIGIN    = 5;
+  }
+}
+
+//! Execution statistics for a pipeline (across all of its stages)
+message ExecutionStats {
+  repeated string pipeline_desc = 1;
+  repeated double latency       = 2;
+  repeated uint64 result_size   = 3;
+}
+
+
 // Either a relation or root relation
 message PlanRel {
   oneof rel_type {
@@ -49,6 +73,12 @@ message Plan {
   // An optional list of bindings for dynamic parameters used in this plan.
   // Each binding maps a parameter_anchor to its corresponding runtime value.
   repeated DynamicParameterBinding parameter_bindings = 7;
+
+  //! Accumulated runtime statistics for decomposition for this query plan.
+  repeated DecomposeStats decompose_stats = 8;
+
+  //! An identifier for the plan
+  string plan_id = 9;
 }
 
 // This message type can be used to deserialize only the version of a Substrait
