@@ -9,17 +9,22 @@ import "skyproto/substrait/extensions/extensions.proto";
 
 //! Structure for runtime statistics for decomposition phases and steps
 message DecomposeStats {
-  StepID step_id     = 1;
-  uint32 operator_id = 2;
-  double latency     = 3;
+  string engine_id   = 1;
+  StepID step_id     = 2;
+  uint32 operator_id = 3;
+  uint64 start_ts    = 4;
+  uint64 stop_ts     = 5;
+  double latency     = 6;
 
   enum StepID {
-    PARSE     = 0;
-    SPLIT     = 1;
-    MERGE     = 2;
-    DELEGATE  = 3;
-    TRANSLATE = 4;
-    ORIGIN    = 5;
+    UNKNOWN     = 0;
+    PARSE       = 1;
+    SPLIT       = 2;
+    MERGE       = 3;
+    DELEGATE    = 4;
+    TRANSLATE   = 5;
+    MATERIALIZE = 6;
+    ORIGIN      = 7;
   }
 }
 
