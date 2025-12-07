@@ -64,6 +64,9 @@ message Plan {
   // parameterized types being declared have many parameters (e.g., struct with
   // many fields, nested parameterized types, string as a type parameter).
   repeated TypeAlias type_aliases = 9;
+
+  //! An identifier for the plan
+  string plan_id = 10;
 }
 
 // This message type can be used to deserialize only the version of a Substrait
