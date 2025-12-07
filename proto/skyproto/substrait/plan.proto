@@ -8,6 +8,35 @@ import "skyproto/substrait/extensions/extensions.proto";
 import "skyproto/substrait/type.proto";
 
 
+//! Structure for runtime statistics for decomposition phases and steps
+message DecomposeStats {
+  string engine_id   = 1;
+  StepID step_id     = 2;
+  uint32 operator_id = 3;
+  uint64 start_ts    = 4;
+  uint64 stop_ts     = 5;
+  double latency     = 6;
+
+  enum StepID {
+    UNKNOWN     = 0;
+    PARSE       = 1;
+    SPLIT       = 2;
+    MERGE       = 3;
+    DELEGATE    = 4;
+    TRANSLATE   = 5;
+    MATERIALIZE = 6;
+    ORIGIN      = 7;
+  }
+}
+
+//! Execution statistics for a pipeline (across all of its stages)
+message ExecutionStats {
+  repeated string pipeline_desc = 1;
+  repeated double latency       = 2;
+  repeated uint64 result_size   = 3;
+}
+
+
 // Either a relation or root relation
 message PlanRel {
   oneof rel_type {
@@ -67,6 +96,9 @@ message Plan {
 
   //! An identifier for the plan
   string plan_id = 10;
+
+  //! Accumulated runtime statistics for decomposition for this query plan.
+  repeated DecomposeStats decompose_stats = 11;
 }
 
 // This message type can be used to deserialize only the version of a Substrait
